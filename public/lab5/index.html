@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна робота №5</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div class="wrapper">
+    <h1>Лабораторна робота №5</h1>
+    <h2>Завдання 1. Перевірка форми (варіант 8)</h2>
+
+    <form id="infoForm" class="info-form">
+        <div class="form-row" data-field="fullName">
+            <label for="fullName">ПІБ (ТТТТТТ Т.Т.)</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Напр.: Токій О.О.">
+        </div>
+
+        <div class="form-row" data-field="group">
+            <label for="group">Група (ТТ-ЧЧ)</label>
+            <input type="text" id="group" name="group" placeholder="Напр.: ТТ-12">
+        </div>
+
+        <div class="form-row" data-field="idCard">
+            <label for="idCard">ID-card (ТТ №ЧЧЧЧЧЧ)</label>
+            <input type="text" id="idCard" name="idCard" placeholder="Напр.: АБ №123456">
+        </div>
+
+        <div class="form-row" data-field="birthDate">
+            <label for="birthDate">Дата народження (ЧЧ.ЧЧ.ЧЧЧЧ)</label>
+            <input type="text" id="birthDate" name="birthDate" placeholder="Напр.: 24.11.2005">
+        </div>
+
+        <div class="form-row" data-field="email">
+            <label for="email">e-mail (тттттт@ттттт.com)</label>
+            <input type="text" id="email" name="email" placeholder="Напр.: name@site.com">
+        </div>
+
+        <button type="submit" id="btnCheck">Перевірити</button>
+    </form>
+
+    <h2>Завдання 2. Таблиця 6×6 (варіант 8)</h2>
+
+    <div class="table-controls">
+        <label for="colorPicker">Виберіть колір для кліку / dblClick:</label>
+        <input type="color" id="colorPicker" value="#ff0000">
+    </div>
+
+    <table id="numberTable"></table>
+
+    <p class="hint">
+        Наведіть курсор на клітинку з номером 8 – колір стане випадковим.<br>
+        Click по ній – колір зміниться на обраний у палітрі.<br>
+        Подвійний click – цей колір отримає кожен другий стовпчик, починаючи з її стовпця.
+    </p>
+</div>
+</body>
+</html>

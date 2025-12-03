@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d0d0d0;
+}
+
+.wrapper {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px 30px 40px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin: 20px 0 10px;
+}
+
+.info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-row label {
+    font-weight: bold;
+}
+
+.form-row input {
+    padding: 6px 8px;
+    border: 1px solid #999999;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-row.error input {
+    border-color: #d00000;
+    background-color: #ffe0e0;
+}
+
+#btnCheck {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1f73d0;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+#btnCheck:hover {
+    background-color: #15539a;
+}
+
+.table-controls {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#numberTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#numberTable td {
+    width: calc(100% / 6);
+    height: 40px;
+    border: 1px solid #999999;
+    text-align: center;
+    vertical-align: middle;
+    cursor: default;
+    background-color: #f5f5f5;
+}
+
+#numberTable td.special {
+    font-weight: bold;
+}
+
+.hint {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #555555;
+}
