@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d0d0d0;
+}
+
+.wrapper {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px 30px 40px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+#loadUser {
+    padding: 10px 18px;
+    background-color: #1f73d0;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#loadUser:hover {
+    background-color: #15539a;
+}
+
+/* контейнер для ВСІХ користувачів: колонки, а не рядок */
+#userCard {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* одна картка користувача */
+.user-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px 20px;
+    border-radius: 6px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-card img {
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+}
+
+.user-info p {
+    margin-bottom: 6px;
+}
+
+.error {
+    margin-top: 15px;
+    color: #d00000;
+}
