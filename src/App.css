@@ -1,0 +1,106 @@
+:root {
+    --bg:#f4f5fb;
+    --text:#1a1a1a;
+    --muted:#6b6b6b;
+    --card:#ffffff;
+    --accent:#6b9bff;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { height:100%; }
+
+body {
+    background:radial-gradient(circle at top, #eef1ff, #f4f5fb 60%);
+    font-family:"Inter", sans-serif;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+}
+
+.container {
+    width:min(900px, 94vw);
+    background:var(--card);
+    padding:60px 40px;
+    border-radius:32px;
+    border:1px solid rgba(0,0,0,0.05);
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+h1 {
+    font-size:36px;
+    margin-bottom:10px;
+    font-weight:800;
+    letter-spacing:-0.5px;
+}
+p.lead {
+    color:var(--muted);
+    margin-bottom:36px;
+}
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(1, 1fr);
+    gap:22px;
+}
+@media (min-width:700px) {
+    .grid {
+        grid-template-columns:repeat(4, 1fr);
+    }
+}
+
+a.card {
+    text-decoration:none;
+    background:var(--card);
+    padding:26px 20px;
+    border-radius:22px;
+    color:var(--text);
+    border:1px solid rgba(0,0,0,0.06);
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+    
+    position:relative;
+    overflow:hidden;
+}
+a.card::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg, rgba(107,155,255,0.12), rgba(255,255,255,0));
+    opacity:0;
+    transition:opacity .3s ease;
+}
+a.card:hover::before {
+    opacity:1;
+}
+
+a.card:hover {
+    transform:translateY(-6px) scale(1.03) rotateX(4deg);
+    border-color:var(--accent);
+    box-shadow:0 16px 32px rgba(107,155,255,0.22);
+}
+
+a.card span {
+    font-size:18px;
+    font-weight:600;
+}
+a.card small {
+    color:var(--muted);
+    margin-top:6px;
+    font-size:14px;
+}
+
+footer {
+    margin-top:34px;
+    color:var(--muted);
+    font-size:14px;
+}
