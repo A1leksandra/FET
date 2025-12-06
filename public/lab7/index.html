@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Лабораторна робота №7</title>
-    <link rel="stylesheet" href="./style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота 7</title>
+    <link rel="stylesheet" href="components/Lab7.css">
 </head>
 <body>
     <div id="root"></div>
-
-    <script type="module" src="./main.jsx"></script>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script>
+        // Система модулів
+        const modules = {};
+        const loadModule = async (path, name) => {
+            const response = await fetch(path);
+            let code = await response.text();
+            
+            // Замінюємо import на window об'єкти
+            code = code.replace(/import React from 'react';/g, 'const React = window.React;');
+            code = code.replace(/import\s+(\w+)\s+from\s+['"]\.\/components\/(\w+)['"];?/g, 
+                'const $1 = modules["$2"];');
+            code = code.replace(/import\s+(\w+)\s+from\s+['"]\.\/components\/(\w+)\.js['"];?/g, 
+                'const $1 = modules["$2"];');
+            code = code.replace(/import\s+['"]\.\/components\/Lab7\.css['"];?/g, '');
+            
+            // Замінюємо export default на window
+            code = code.replace(/export default (\w+);/g, 
+                `modules["${name}"] = $1;`);
+            
+            // Трансформуємо JSX
+            const transformed = Babel.transform(code, {
+                presets: ['react']
+            }).code;
+            
+            eval(transformed);
+        };
+        
+        (async () => {
+            // Завантаження компонентів
+            await loadModule('components/Header.js', 'Header');
+            await loadModule('components/Content.js', 'Content');
+            await loadModule('components/Image.js', 'Image');
+            await loadModule('components/GoodsCard.js', 'GoodsCard');
+            await loadModule('App.js', 'App');
+            
+            // Рендеринг
+            const { createRoot } = ReactDOM;
+            const root = createRoot(document.getElementById('root'));
+            root.render(React.createElement(modules.App));
+        })();
+    </script>
 </body>
 </html>
