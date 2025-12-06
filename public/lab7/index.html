@@ -16,42 +16,78 @@
     <script>
         // Система модулів
         const modules = {};
+        const React = window.React;
+        const ReactDOM = window.ReactDOM;
+        
         const loadModule = async (path, name) => {
             const response = await fetch(path);
             let code = await response.text();
             
-            // Замінюємо import на window об'єкти
-            code = code.replace(/import React from 'react';/g, 'const React = window.React;');
+            // Замінюємо всі варіанти import React
+            code = code.replace(/import\s+React\s+from\s+['"]react['"];?/g, 'const React = window.React;');
+            code = code.replace(/import\s+React,\s*\{\s*([^}]+)\s*\}\s+from\s+['"]react['"];?/g, 
+                (match, hooks) => {
+                    const hookList = hooks.split(',').map(h => h.trim());
+                    let result = 'const React = window.React;';
+                    hookList.forEach(hook => {
+                        result += `\nconst ${hook} = React.${hook};`;
+                    });
+                    return result;
+                });
+            code = code.replace(/import\s+\{\s*([^}]+)\s*\}\s+from\s+['"]react['"];?/g, 
+                (match, hooks) => {
+                    const hookList = hooks.split(',').map(h => h.trim());
+                    let result = '';
+                    hookList.forEach(hook => {
+                        result += `const ${hook} = React.${hook};\n`;
+                    });
+                    return result;
+                });
+            
+            // Замінюємо import компонентів
             code = code.replace(/import\s+(\w+)\s+from\s+['"]\.\/components\/(\w+)['"];?/g, 
                 'const $1 = modules["$2"];');
             code = code.replace(/import\s+(\w+)\s+from\s+['"]\.\/components\/(\w+)\.js['"];?/g, 
                 'const $1 = modules["$2"];');
-            code = code.replace(/import\s+['"]\.\/components\/Lab7\.css['"];?/g, '');
             
-            // Замінюємо export default на window
-            code = code.replace(/export default (\w+);/g, 
+            // Видаляємо import CSS
+            code = code.replace(/import\s+['"]\.\/components\/Lab7\.css['"];?/g, '');
+            code = code.replace(/import\s+['"]\.\/components\/Lab7\.css['"];?\s*/g, '');
+            
+            // Замінюємо export default
+            code = code.replace(/export\s+default\s+(\w+);?/g, 
                 `modules["${name}"] = $1;`);
             
-            // Трансформуємо JSX
+            // Трансформуємо JSX через Babel
             const transformed = Babel.transform(code, {
                 presets: ['react']
             }).code;
             
-            eval(transformed);
+            // Виконуємо код
+            try {
+                eval(transformed);
+            } catch (error) {
+                console.error(`Error loading module ${name}:`, error);
+                console.error('Transformed code:', transformed);
+            }
         };
         
         (async () => {
-            // Завантаження компонентів
-            await loadModule('components/Header.js', 'Header');
-            await loadModule('components/Content.js', 'Content');
-            await loadModule('components/Image.js', 'Image');
-            await loadModule('components/GoodsCard.js', 'GoodsCard');
-            await loadModule('App.js', 'App');
-            
-            // Рендеринг
-            const { createRoot } = ReactDOM;
-            const root = createRoot(document.getElementById('root'));
-            root.render(React.createElement(modules.App));
+            try {
+                // Завантаження компонентів в правильному порядку
+                await loadModule('components/Header.js', 'Header');
+                await loadModule('components/Content.js', 'Content');
+                await loadModule('components/Image.js', 'Image');
+                await loadModule('components/GoodsCard.js', 'GoodsCard');
+                await loadModule('App.js', 'App');
+                
+                // Рендеринг
+                const { createRoot } = ReactDOM;
+                const root = createRoot(document.getElementById('root'));
+                root.render(React.createElement(modules.App));
+            } catch (error) {
+                console.error('Error initializing app:', error);
+            }
         })();
     </script>
 </body>

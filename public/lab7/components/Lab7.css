@@ -40,6 +40,30 @@ ol {
     height: auto;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
+.buttons {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+button {
+    padding: 8px 14px;
+    border: none;
+    background-color: #1f73d0;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #15539a;
+}
+
 /* Goods Gallery Styles */
 .goods-gallery {
     margin-top: 40px;

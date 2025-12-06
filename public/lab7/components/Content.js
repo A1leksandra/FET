@@ -1,7 +1,25 @@
 import React from 'react';
 
 class Content extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            toggled: false
+        };
+    }
+
+    toggleColors = () => {
+        this.setState(prevState => ({
+            toggled: !prevState.toggled
+        }));
+    }
+
     render() {
+        const style = this.state.toggled ? {
+            backgroundColor: '#1f73d0',
+            color: '#ffffff'
+        } : {};
+
         return (
             <div>
                 <p>
@@ -28,7 +46,12 @@ class Content extends React.Component {
                     <li>"1+1", 2011</li>
                 </ol>
 
-                <p>
+                <p 
+                    id="elem8" 
+                    className="clickable"
+                    onClick={this.toggleColors}
+                    style={style}
+                >
                     Моє улюблене місто — Одеса. Це яскраве, веселе й неповторне місто біля Чорного моря.
                     Тут завжди панує тепла атмосфера, чути морський бриз і сміх людей на Приморському бульварі.
                     Одеса має особливий гумор і характер, які роблять її справді унікальною.
